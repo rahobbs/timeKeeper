@@ -6,21 +6,30 @@ var monthNames = [ "January", "February", "March", "April", "May", "June",
 var dayNames= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
 
 var newDate = new Date();
-newDate.setDate(newDate.getDate() + 1);    
+newDate.setDate(newDate.getDate());    
 $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
 
 
 // Start and Stop buttons
-var startClick = function()
-{ 
-  localStorage.setItem('taskName', $('#task')[0].innerHTML());
-  localStorage.setItem('start', jQuery.now());
+var startClick = function(){  
+	 timestamp = jQuery.now();
+  localStorage.setItem(timestamp, JSON.stringify({
+  	taskName: $('#task').val(),
+  	endTime: null
+  }));
 }
+
 document.getElementById('Start').onclick = startClick;
 
 var stopClick = function(){
-    localStorage.setItem('stop', jQuery.now());
-}
+	var endTime = jQuery.now();
+	localStorage.setItem(timestamp, JSON.stringify({
+  	taskName: $('#task').val(),
+  	endTime: endTime
+  }));
+	$('#completed').prepend("<p>"+$('#task').val() + " began at " + timestamp + " and ended at " + endTime);
+	};
+
 document.getElementById('Stop').onclick = stopClick;
 
 
