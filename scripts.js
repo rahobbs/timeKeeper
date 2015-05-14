@@ -12,7 +12,7 @@ $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + mon
 
 // Start and Stop buttons
 var startClick = function(){  
-	 timestamp = jQuery.now();
+	timestamp = jQuery.now();
   localStorage.setItem(timestamp, JSON.stringify({
   	taskName: $('#task').val(),
   	endTime: null
@@ -31,8 +31,6 @@ var stopClick = function(){
 	};
 
 document.getElementById('Stop').onclick = stopClick;
-
-
 
 });
 
