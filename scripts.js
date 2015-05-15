@@ -12,7 +12,10 @@ $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + mon
 
 // Start and Stop buttons
 var startClick = function(){  
-	timestamp = jQuery.now();
+	dateTime = new Date();
+	timestamp = dateTime.getTime();
+	readableStart = readableTime(dateTime);
+
   localStorage.setItem(timestamp, JSON.stringify({
   	taskName: $('#task').val(),
   	endTime: null
@@ -22,15 +25,30 @@ var startClick = function(){
 document.getElementById('Start').onclick = startClick;
 
 var stopClick = function(){
-	var endTime = jQuery.now();
+	var endDateTime = new Date();
+	var endTime = endDateTime.getTime();
+	readableEnd = readableTime(dateTime);
+
 	localStorage.setItem(timestamp, JSON.stringify({
   	taskName: $('#task').val(),
   	endTime: endTime
   }));
-	$('#completed').prepend("<p>"+$('#task').val() + " began at " + timestamp + " and ended at " + endTime);
+	$('#completed').prepend("<p>"+$('#task').val() + " began at " + readableStart + " and ended at " + readableEnd);
 	};
 
 document.getElementById('Stop').onclick = stopClick;
+
+readableTime = function(dateTime){
+  var hours = dateTime.getHours();
+  var minutes = dateTime.getMinutes()
+
+  if (minutes < 10){
+  	minutes = "0" + minutes
+  }
+  return hours + ":" + minutes
+
+}
+
 
 });
 
