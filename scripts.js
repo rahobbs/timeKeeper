@@ -34,6 +34,7 @@ var stopClick = function(){
   	endTime: endTime
   }));
 	$('#completed').prepend("<p>"+$('#task').val() + " began at " + readableStart + " and ended at " + readableEnd);
+	$('#task').val("");
 	};
 
 document.getElementById('Stop').onclick = stopClick;
