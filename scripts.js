@@ -14,7 +14,7 @@ $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + mon
 var startClick = function(){  
 	dateTime = new Date();
 	timestamp = dateTime.getTime();
-	readableStart = readableTime(dateTime);
+	readableStart = //TODO function to make timestamp human readable
 
   localStorage.setItem(timestamp, JSON.stringify({
   	taskName: $('#task').val(),
@@ -27,13 +27,13 @@ document.getElementById('Start').onclick = startClick;
 var stopClick = function(){
 	var endDateTime = new Date();
 	var endTime = endDateTime.getTime();
-	readableEnd = readableTime(dateTime);
+	readableEnd = //TODO make endTime human readable
 
 	localStorage.setItem(timestamp, JSON.stringify({
   	taskName: $('#task').val(),
   	endTime: endTime
   }));
-	$('#completed').prepend("<p>"+$('#task').val() + " began at " + readableStart + " and ended at " + readableEnd);
+	$('#completed').prepend("<p>"+ JSON.parse(localStorage.getItem(timestamp)).taskName + " began at " + timestamp + " and ended at " + JSON.parse(localStorage.getItem(timestamp)).endTime); 
 	$('#task').val("");
 	};
 
