@@ -6,7 +6,16 @@
 
 body {
 	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
 }
 
+
 button {
+	font-size: 18px;
+	margin-top: 8px;
+}
+
+input[type="text"] {
+  width: 80%;
+  font-size: 18px;
 }
