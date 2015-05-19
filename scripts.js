@@ -14,7 +14,7 @@ $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + mon
 var startClick = function(){  
 	dateTime = new Date();
 	timestamp = dateTime.getTime();
-	readableStart = //TODO function to make timestamp human readable
+	readableStart = readableTime(timestamp);
 
   localStorage.setItem(timestamp, JSON.stringify({
   	taskName: $('#task').val(),
@@ -27,21 +27,23 @@ document.getElementById('Start').onclick = startClick;
 var stopClick = function(){
 	var endDateTime = new Date();
 	var endTime = endDateTime.getTime();
-	readableEnd = //TODO make endTime human readable
+	readableEnd = readableTime(endTime);
 
 	localStorage.setItem(timestamp, JSON.stringify({
   	taskName: $('#task').val(),
   	endTime: endTime
   }));
-	$('#completed').prepend("<p>"+ JSON.parse(localStorage.getItem(timestamp)).taskName + " began at " + timestamp + " and ended at " + JSON.parse(localStorage.getItem(timestamp)).endTime); 
-	$('#task').val("");
+	
+  $('#completed').prepend("<p>"+ JSON.parse(localStorage.getItem(timestamp)).taskName + " began at " + readableStart + " and ended at " + readableEnd) ;
+	
+  $('#task').val(""); // Clears text from input box
 	};
 
 document.getElementById('Stop').onclick = stopClick;
 
-readableTime = function(dateTime){
-  var hours = dateTime.getHours();
-  var minutes = dateTime.getMinutes()
+readableTime = function(timestamp){
+  var hours = new Date(timestamp).getHours();
+  var minutes = new Date(timestamp).getMinutes()
 
   if (minutes < 10){
   	minutes = "0" + minutes
