@@ -56,9 +56,8 @@ readableTime = function(timestamp){
 //List all completed tasks
 
 for (var i = 0; i < localStorage.length; i++){
-    // do something with localStorage.getItem(localStorage.key(i));
   
-  var readableStart = readableTime(JSON.parse(localStorage.getItem(localStorage.key(i))));
+  var readableStart = readableTime(JSON.parse(localStorage.key(i)));;
   var readableEnd   = readableTime(JSON.parse(localStorage.getItem(localStorage.key(i))).endTime);
 
   $('#taskList').prepend("<p>"+ JSON.parse(localStorage.getItem(localStorage.key(i))).taskName + " began at " + 
