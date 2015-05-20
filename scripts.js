@@ -15,13 +15,13 @@ $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + mon
 //   monthNum = "0" + String(monthNum);
 // }
 //
-// $('#startDate').val(String(newDate.getFullYear()) + '-' + String(monthNum) +
+// $('input#startDate').val(String(newDate.getFullYear()) + '-' + String(monthNum) +
 // '-' + String(newDate.getDate()));
-// $('#endDate').val(String(newDate.getFullYear()) + '-' + String(monthNum) +
+// $('input#endDate').val(String(newDate.getFullYear()) + '-' + String(monthNum) +
 // '-' + String(newDate.getDate()));
 
 
-// Start and Stop buttons
+// Start button inilializes task object w/ start time and name
 var startClick = function(){
   dateTime = new Date();
   timestamp = dateTime.getTime();
@@ -35,6 +35,7 @@ var startClick = function(){
 
 document.getElementById('Start').onclick = startClick;
 
+// Stop button modifies task object w/end time and prepends to taskList
 var stopClick = function(){
   var endDateTime = new Date();
   var endTime = endDateTime.getTime();
@@ -45,7 +46,7 @@ var stopClick = function(){
     endTime: endTime
   }));
 
-  $('#completed').prepend("<p>"+ JSON.parse(localStorage.getItem(timestamp)).taskName + " began at " +
+  $('#taskList').prepend("<p>"+ JSON.parse(localStorage.getItem(timestamp)).taskName + " began at " +
     readableStart + " and ended at " + readableEnd) ;
 
   $('#task').val(""); // Clears text from input box
@@ -53,6 +54,7 @@ var stopClick = function(){
 
 document.getElementById('Stop').onclick = stopClick;
 
+//readableTime converts timestamps to HH:MM for display on page
 readableTime = function(timestamp){
   var hours = new Date(timestamp).getHours();
   var minutes = new Date(timestamp).getMinutes()
@@ -64,8 +66,18 @@ readableTime = function(timestamp){
 
 }
 
-//List completed tasks
-function generateList(){
+//List all completed tasks on page load
+for (var i = 0; i < localStorage.length; i++){
+
+  var readableStart = readableTime(JSON.parse(localStorage.key(i)));;
+  var readableEnd   = readableTime(JSON.parse(localStorage.getItem(localStorage.key(i))).endTime);
+
+  $('#taskList').prepend("<p>"+ JSON.parse(localStorage.getItem(localStorage.key(i))).taskName + " began at " +
+  readableStart + " and ended at " + readableEnd) ;
+}
+
+//Filter tasks by date
+function filterList(){
   $("p").remove();
   for (var i = 0; i < localStorage.length; i++){
     var datePickerStart = (new Date($('#startDate').val())).getTime();
@@ -81,6 +93,6 @@ function generateList(){
   }
 }
 
-document.getElementById('Search').onclick = generateList;
+document.getElementById('Search').onclick = filterList;
 
 });
