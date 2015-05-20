@@ -9,7 +9,6 @@ var newDate = new Date();
 newDate.setDate(newDate.getDate());
 $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
 
-
 // Start and Stop buttons
 var startClick = function(){
   dateTime = new Date();
@@ -53,8 +52,7 @@ readableTime = function(timestamp){
 
 }
 
-
-//List all completed tasks
+//List completed tasks
 
 for (var i = 0; i < localStorage.length; i++){
 
@@ -67,6 +65,7 @@ for (var i = 0; i < localStorage.length; i++){
 
   $('#taskList').prepend("<p>"+ JSON.parse(localStorage.getItem(localStorage.key(i))).taskName + " began at " +
   readableStart + " and ended at " + readableEnd + "</p>") ;
+
 }
 
 });

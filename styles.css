@@ -2,11 +2,15 @@
 	font-family: 'Gloria Hallelujah', cursive;
 	font-size: 30px;
 	text-align: center;
-}	
+}
 
 body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 18px;
+}
+
+div{
+	padding-bottom: 10px;
 }
 
 
