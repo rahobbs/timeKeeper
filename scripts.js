@@ -12,33 +12,33 @@ $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + mon
 
 // Start and Stop buttons
 var startClick = function(){  
-	dateTime = new Date();
-	timestamp = dateTime.getTime();
-	readableStart = readableTime(timestamp);
+  dateTime = new Date();
+  timestamp = dateTime.getTime();
+  readableStart = readableTime(timestamp);
 
   localStorage.setItem(timestamp, JSON.stringify({
-  	taskName: $('#task').val(),
-  	endTime: null
+    taskName: $('#task').val(),
+    endTime: null
   }));
 }
 
 document.getElementById('Start').onclick = startClick;
 
 var stopClick = function(){
-	var endDateTime = new Date();
-	var endTime = endDateTime.getTime();
-	readableEnd = readableTime(endTime);
+  var endDateTime = new Date();
+  var endTime = endDateTime.getTime();
+  readableEnd = readableTime(endTime);
 
-	localStorage.setItem(timestamp, JSON.stringify({
-  	taskName: $('#task').val(),
-  	endTime: endTime
+  localStorage.setItem(timestamp, JSON.stringify({
+    taskName: $('#task').val(),
+    endTime: endTime
   }));
-	
+  
   $('#completed').prepend("<p>"+ JSON.parse(localStorage.getItem(timestamp)).taskName + " began at " + 
     readableStart + " and ended at " + readableEnd) ;
-	
+  
   $('#task').val(""); // Clears text from input box
-	};
+  };
 
 document.getElementById('Stop').onclick = stopClick;
 
@@ -47,15 +47,20 @@ readableTime = function(timestamp){
   var minutes = new Date(timestamp).getMinutes()
 
   if (minutes < 10){
-  	minutes = "0" + minutes
+    minutes = "0" + minutes
   }
   return hours + ":" + minutes
 
 }
 
+
 //List all completed tasks
 
 for (var i = 0; i < localStorage.length; i++){
+
+  var datePickerStart = (new Date($('#startDate').val())).getTime();
+  //adds 11:59 to date time to register as end of day
+  var datePickerEnd =  (new Date($('#endDate').val())).getTime() + 89940000; 
   
   var readableStart = readableTime(JSON.parse(localStorage.key(i)));;
   var readableEnd   = readableTime(JSON.parse(localStorage.getItem(localStorage.key(i))).endTime);
@@ -65,4 +70,3 @@ for (var i = 0; i < localStorage.length; i++){
 }
 
 });
-
