@@ -37,20 +37,25 @@ document.getElementById('Start').onclick = startClick;
 
 // Stop button modifies task object w/end time and prepends to taskList
 var stopClick = function(){
-  var endDateTime = new Date();
-  var endTime = endDateTime.getTime();
-  readableEnd = readableTime(endTime);
+  if ($('#task').val() == ""){
+    alert('Task name cannot be null.')
+    return false
+    }
+  else
+    var endDateTime = new Date();
+    var endTime = endDateTime.getTime();
+    readableEnd = readableTime(endTime);
 
-  localStorage.setItem(timestamp, JSON.stringify({
-    taskName: $('#task').val(),
-    endTime: endTime
-  }));
+    localStorage.setItem(timestamp, JSON.stringify({
+      taskName: $('#task').val(),
+      endTime: endTime
+    }));
 
-  $('#taskList').prepend("<p>"+ JSON.parse(localStorage.getItem(timestamp)).taskName + " began at " +
-    readableStart + " and ended at " + readableEnd) ;
+    $('#taskList').prepend("<p>"+ JSON.parse(localStorage.getItem(timestamp)).taskName + " began at " +
+      readableStart + " and ended at " + readableEnd) ;
 
-  $('#task').val(""); // Clears text from input box
-  };
+    $('#task').val(""); // Clears text from input box
+    };
 
 document.getElementById('Stop').onclick = stopClick;
 
