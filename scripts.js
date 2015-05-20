@@ -9,6 +9,18 @@ var newDate = new Date();
 newDate.setDate(newDate.getDate());
 $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
 
+//Populate date fields with today's date by default (not working)
+// var monthNum = newDate.getMonth();
+// if (monthNum < 10){
+//   monthNum = "0" + String(monthNum);
+// }
+//
+// $('#startDate').val(String(newDate.getFullYear()) + '-' + String(monthNum) +
+// '-' + String(newDate.getDate()));
+// $('#endDate').val(String(newDate.getFullYear()) + '-' + String(monthNum) +
+// '-' + String(newDate.getDate()));
+
+
 // Start and Stop buttons
 var startClick = function(){
   dateTime = new Date();
