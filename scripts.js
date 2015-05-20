@@ -6,12 +6,12 @@ var monthNames = [ "January", "February", "March", "April", "May", "June",
 var dayNames= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
 
 var newDate = new Date();
-newDate.setDate(newDate.getDate());    
+newDate.setDate(newDate.getDate());
 $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
 
 
 // Start and Stop buttons
-var startClick = function(){  
+var startClick = function(){
   dateTime = new Date();
   timestamp = dateTime.getTime();
   readableStart = readableTime(timestamp);
@@ -33,10 +33,10 @@ var stopClick = function(){
     taskName: $('#task').val(),
     endTime: endTime
   }));
-  
-  $('#completed').prepend("<p>"+ JSON.parse(localStorage.getItem(timestamp)).taskName + " began at " + 
+
+  $('#completed').prepend("<p>"+ JSON.parse(localStorage.getItem(timestamp)).taskName + " began at " +
     readableStart + " and ended at " + readableEnd) ;
-  
+
   $('#task').val(""); // Clears text from input box
   };
 
@@ -60,13 +60,13 @@ for (var i = 0; i < localStorage.length; i++){
 
   var datePickerStart = (new Date($('#startDate').val())).getTime();
   //adds 11:59 to date time to register as end of day
-  var datePickerEnd =  (new Date($('#endDate').val())).getTime() + 89940000; 
-  
+  var datePickerEnd =  (new Date($('#endDate').val())).getTime() + 89940000;
+
   var readableStart = readableTime(JSON.parse(localStorage.key(i)));;
   var readableEnd   = readableTime(JSON.parse(localStorage.getItem(localStorage.key(i))).endTime);
 
-  $('#taskList').prepend("<p>"+ JSON.parse(localStorage.getItem(localStorage.key(i))).taskName + " began at " + 
-  readableStart + " and ended at " + readableEnd) ;
+  $('#taskList').prepend("<p>"+ JSON.parse(localStorage.getItem(localStorage.key(i))).taskName + " began at " +
+  readableStart + " and ended at " + readableEnd + "</p>") ;
 }
 
 });
