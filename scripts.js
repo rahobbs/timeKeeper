@@ -53,19 +53,22 @@ readableTime = function(timestamp){
 }
 
 //List completed tasks
+function generateList(){
+  $("p").remove();
+  for (var i = 0; i < localStorage.length; i++){
+    var datePickerStart = (new Date($('#startDate').val())).getTime();
+    //adds 11:59 to date time to register as end of day
+    var datePickerEnd =  (new Date($('#endDate').val())).getTime() + 89940000;
+    var readableStart = readableTime(JSON.parse(localStorage.key(i)));;
+    var readableEnd   = readableTime(JSON.parse(localStorage.getItem(localStorage.key(i))).endTime);
 
-for (var i = 0; i < localStorage.length; i++){
-
-  var datePickerStart = (new Date($('#startDate').val())).getTime();
-  //adds 11:59 to date time to register as end of day
-  var datePickerEnd =  (new Date($('#endDate').val())).getTime() + 89940000;
-
-  var readableStart = readableTime(JSON.parse(localStorage.key(i)));;
-  var readableEnd   = readableTime(JSON.parse(localStorage.getItem(localStorage.key(i))).endTime);
-
-  $('#taskList').prepend("<p>"+ JSON.parse(localStorage.getItem(localStorage.key(i))).taskName + " began at " +
-  readableStart + " and ended at " + readableEnd + "</p>") ;
-
+    if (localStorage.key(i) > datePickerStart && localStorage.key(i) < datePickerEnd){
+      $('#taskList').prepend("<p>"+ JSON.parse(localStorage.getItem(localStorage.key(i))).taskName + " began at " +
+      readableStart + " and ended at " + readableEnd + "</p>") ;
+    }
+  }
 }
+
+document.getElementById('Search').onclick = generateList;
 
 });
