@@ -3,7 +3,7 @@ $(document).ready(function() {
 // Display date at top of page
 var monthNames = [ "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December" ];
-var dayNames= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+var dayNames= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
 var newDate = new Date();
 newDate.setDate(newDate.getDate());
@@ -27,26 +27,26 @@ var startClick = function(){
   timestamp = dateTime.getTime();
   readableStart = readableTime(timestamp);
 
-  localStorage.setItem(timestamp, JSON.stringify({
+  chrome.storage.local.set(timestamp, JSON.stringify({
     taskName: $('#task').val(),
     endTime: null
   }));
-}
+};
 
 document.getElementById('Start').onclick = startClick;
 
 // Stop button modifies task object w/end time and prepends to taskList
 var stopClick = function(){
-  if ($('#task').val() == ""){
-    alert('Task name cannot be null.')
-    return false
+  if ($('#task').val() === ""){
+    alert('Task name cannot be null.');
+    return false;
     }
   else
     var endDateTime = new Date();
     var endTime = endDateTime.getTime();
     readableEnd = readableTime(endTime);
 
-    localStorage.setItem(timestamp, JSON.stringify({
+    chrome.storage.local.set(timestamp, JSON.stringify({
       taskName: $('#task').val(),
       endTime: endTime
     }));
@@ -62,19 +62,19 @@ document.getElementById('Stop').onclick = stopClick;
 //readableTime converts timestamps to HH:MM for display on page
 readableTime = function(timestamp){
   var hours = new Date(timestamp).getHours();
-  var minutes = new Date(timestamp).getMinutes()
+  var minutes = new Date(timestamp).getMinutes();
 
   if (minutes < 10){
-    minutes = "0" + minutes
+    minutes = "0" + minutes;
   }
-  return hours + ":" + minutes
+  return hours + ":" + minutes;
 
-}
+};
 
 //List all completed tasks on page load
 for (var i = 0; i < localStorage.length; i++){
 
-  var readableStart = readableTime(JSON.parse(localStorage.key(i)));;
+  var readableStart = readableTime(JSON.parse(localStorage.key(i)));
   var readableEnd   = readableTime(JSON.parse(localStorage.getItem(localStorage.key(i))).endTime);
 
   $('#taskList').prepend("<p>"+ JSON.parse(localStorage.getItem(localStorage.key(i))).taskName + " began at " +
@@ -88,7 +88,7 @@ function filterList(){
     var datePickerStart = (new Date($('#startDate').val())).getTime();
     //adds 11:59 to date time to register as end of day
     var datePickerEnd =  (new Date($('#endDate').val())).getTime() + 89940000;
-    var readableStart = readableTime(JSON.parse(localStorage.key(i)));;
+    var readableStart = readableTime(JSON.parse(localStorage.key(i)));
     var readableEnd   = readableTime(JSON.parse(localStorage.getItem(localStorage.key(i))).endTime);
 
     if (localStorage.key(i) > datePickerStart && localStorage.key(i) < datePickerEnd){
